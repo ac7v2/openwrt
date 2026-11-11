@@ -8,17 +8,18 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libressl
-PKG_VERSION:=3.7.1
-PKG_HASH:=98086961a2b8b657ed0fea3056fb2db14294b6bfa193c15a5236a0a35c843ded
+PKG_VERSION:=4.2.3
+PKG_HASH:=4063e659bc79573146d0faab01ad28762f5141acdc39df29247fc255aadf187c
 
 PKG_CPE_ID:=cpe:/a:openbsd:libressl
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://mirror.ox.ac.uk/pub/OpenBSD/LibreSSL \
-	http://ftp.jaist.ac.jp/pub/OpenBSD/LibreSSL \
+	https://ftp.jaist.ac.jp/pub/OpenBSD/LibreSSL \
 	https://ftp.openbsd.org/pub/OpenBSD/LibreSSL
 
 HOST_BUILD_PARALLEL:=1
+HOST_CONFIGURE_CACHE:=1
 
 include $(INCLUDE_DIR)/host-build.mk
 

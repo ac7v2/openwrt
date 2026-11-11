@@ -10,9 +10,9 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=bridger
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL=https://github.com/nbd168/bridger
-PKG_SOURCE_DATE:=2023-01-27
-PKG_SOURCE_VERSION:=8be8bb9df789b53a68f08298f610648ebded6063
-PKG_MIRROR_HASH:=d4f47009bb00c4f129d0959cb00ed90bc14bfe5dd0e67458ddb54176365e65f0
+PKG_SOURCE_DATE:=2026-09-18
+PKG_SOURCE_VERSION:=2a2d1261d12e3054b9e3f9e134f51048bb1ba1ad
+PKG_MIRROR_HASH:=a87c8620ff83d8a1a96b2dba5ef248a3b0ea9c4ea5cac206c05b9c7232c37320
 
 PKG_LICENSE:=GPL-2.0
 PKG_MAINTAINER:=Felix Fietkau <nbd@nbd.name>
@@ -30,7 +30,7 @@ define Package/bridger
   SECTION:=utils
   CATEGORY:=Base system
   TITLE:=Bridge forwarding accelerator
-  DEPENDS:=+libbpf +libubox +libubus +libnl-tiny +kmod-sched-core +kmod-sched-flower +kmod-sched-bpf +kmod-sched-act-vlan $(BPF_DEPENDS)
+  DEPENDS:=+libbpf +libubox +libubus +libudebug +libnl-tiny +kmod-sched-core +kmod-sched-flower +kmod-sched-bpf +kmod-sched-act-vlan $(BPF_DEPENDS)
 endef
 
 TARGET_CFLAGS += \
@@ -38,7 +38,8 @@ TARGET_CFLAGS += \
 	-I$(STAGING_DIR)/usr/include
 
 CMAKE_OPTIONS += \
-	-DLIBNL_LIBS=-lnl-tiny
+	-DLIBNL_LIBS=-lnl-tiny \
+	-DNL_UDEBUG=ON
 
 define Build/Compile
 	$(call CompileBPF,$(PKG_BUILD_DIR)/bridger-bpf.c)

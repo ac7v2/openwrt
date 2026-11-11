@@ -8,22 +8,29 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=squashfs4
 PKG_CPE_ID:=cpe:/a:phillip_lougher:squashfs
-PKG_VERSION:=4.5.1
+PKG_VERSION:=4.7.5
 PKG_RELEASE=1
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/plougher/squashfs-tools
-PKG_SOURCE_DATE:=2022-03-17
-PKG_SOURCE_VERSION:=afdd63fc386919b4aa40d573b0a6069414d14317
-PKG_MIRROR_HASH:=59c294e00ddfc1f4bda658c7567584ce35fdd479c413ebdb1376981b27737be1
+PKG_SOURCE_DATE:=2026-03-02
+PKG_SOURCE_VERSION:=708c59ae80853b0845017c33b42e56061cc546cd
+PKG_MIRROR_HASH:=504dbc8e6709ac904c4e6929ebba6f88c125b2b9775371f0cd5d9967bfba89e1
+
+HOST_BUILD_PARALLEL:=1
 
 include $(INCLUDE_DIR)/host-build.mk
 
 define Host/Compile
 	+$(HOST_MAKE_VARS) \
-	$(MAKE) -C $(HOST_BUILD_DIR)/squashfs-tools \
+	$(MAKE) $(HOST_JOBS) -C $(HOST_BUILD_DIR)/squashfs-tools \
+		LZ4_SUPPORT=0 \
+		LZO_SUPPORT=0 \
+		ZSTD_SUPPORT=0 \
+		GZIP_SUPPORT=1 \
 		XZ_SUPPORT=1 \
 		LZMA_XZ_SUPPORT=1 \
+		XZ_EXTENDED_OPTIONS=1 \
 		EXTRA_CFLAGS="-I$(STAGING_DIR_HOST)/include" \
 		mksquashfs unsquashfs
 endef

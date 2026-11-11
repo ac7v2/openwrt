@@ -12,9 +12,9 @@ PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL=$(PROJECT_GIT)/project/fstools.git
-PKG_MIRROR_HASH:=4ec370a1cdc9fa69131f1403b064d2e05d54ee865411917410d7540454265319
-PKG_SOURCE_DATE:=2023-02-28
-PKG_SOURCE_VERSION:=bfe882d5ff4eeebb8f57c8a0f9b9e767a57870d8
+PKG_MIRROR_HASH:=7abaed886eb7a092ca91522f31d8374c24699f55eef4ebb8a2f7719322c424b1
+PKG_SOURCE_DATE:=2026-10-18
+PKG_SOURCE_VERSION:=907cf4496eb58c93daf3c9c65ce32eec6e6546e3
 CMAKE_INSTALL:=1
 
 PKG_LICENSE:=GPL-2.0
@@ -95,9 +95,10 @@ endef
 define Package/fstools/install
 	$(INSTALL_DIR) $(1)/sbin $(1)/lib
 
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/{mount_root,jffs2reset} $(1)/sbin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/{mount_root,factoryreset} $(1)/sbin/
 	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/usr/lib/libfstools.so $(1)/lib/
-	$(LN) jffs2reset $(1)/sbin/jffs2mark
+	$(LN) factoryreset $(1)/sbin/jffs2mark
+	$(LN) factoryreset $(1)/sbin/jffs2reset
 endef
 
 define Package/snapshot-tool/install
